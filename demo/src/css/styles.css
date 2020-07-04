@@ -7,15 +7,15 @@ body {
     margin: 0;
 }
 
-.main {
+#main {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .svg {
-    flex-basis: 50%;
-    flex: 1;
+    min-height: 43vw;
+    flex: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +28,7 @@ body {
 
 .chats {
     display: flex;
-    flex-basis: 50%;
+    flex: 1;
 }
 
 .client {

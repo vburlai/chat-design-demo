@@ -1,0 +1,35 @@
+#main FORM {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.join-form {
+    margin: 5%;
+    padding: 5%;
+    flex: 1;
+    border: 1px solid #bfb3b3;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.join-form-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.join-form-main INPUT[type=text] {
+    width: 90%;
+}
+
+.join-form .username {
+    margin-top: 2rem;
+}
+
+.join-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+}
