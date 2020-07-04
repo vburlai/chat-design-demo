@@ -1,0 +1,20 @@
+# YAML syntax https://rollout.io/blog/yaml-tutorial-everything-you-need-get-started/
+version: '2.0'
+services:
+    demo:
+        container_name: demo
+        build: ./demo # will use demo/Dockerfile
+        ports:
+            - "3000:80" # http://localhost:3000/ -> http://demo:80/
+        # Volumes can be added for live-reloading during development
+        volumes:
+            - "./demo/src:/var/www/html/" # automaticaly sync local changes to Docker container
+
+    cdn:
+        container_name: cdn
+        build: ./cdn # will use cdn/Dockerfile
+        ports:
+            - "3001:80" # http://localhost:3001/ -> http://cdn:80/
+        # Volumes can be added for live-reloading during development
+        volumes:
+            - "./cdn/client:/usr/share/nginx/html" # automaticaly sync local changes to Docker container
