@@ -1,3 +1,6 @@
+const SERVER = 'http://localhost:3002'; // load-balancer for App servers
+let socket;
+
 function loadCSS(url) {
     const el = document.createElement('link');
     el.rel = "stylesheet";
@@ -13,6 +16,9 @@ async function joinChat() {
     const { showJoinForm } = await import('./join-form.js');
     const res = await showJoinForm();
     console.log(res);
+
+    socket = io(SERVER);
+    socket.emit('join', res);
 }
 
 async function init() {

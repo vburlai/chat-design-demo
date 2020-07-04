@@ -18,3 +18,34 @@ services:
         # Volumes can be added for live-reloading during development
         volumes:
             - "./cdn/client:/usr/share/nginx/html" # automaticaly sync local changes to Docker container
+
+    load-balancer:
+        container_name: load-balancer
+        build: ./load-balancer # will use load-balancer/Dockerfile
+        ports:
+            - "3002:80" # http://localhost:3002/ -> http://load-balancer:80/
+
+    app-server1:
+        container_name: app-server1
+        build: ./app-server # will use app-server/Dockerfile
+        environment:
+            - APP_SERVER_HOSTNAME=app-server1
+        ports:
+            - "8000" # allow other containers to connect
+            - "3003:8000" # http://localhost:3003/ -> http://app-server:8000/
+        # Volumes can be added for live-reloading during development
+        volumes:
+            - "./app-server/src:/usr/local/app-server/src" # automaticaly sync local changes to Docker container
+
+    app-server2:
+        container_name: app-server2
+        build: ./app-server # will use app-server/Dockerfile
+        environment:
+            - APP_SERVER_HOSTNAME=app-server2
+        ports:
+            - "8000" # allow other containers to connect
+            - "3004:8000" # http://localhost:3004/ -> http://app-server:8000/
+        # Volumes can be added for live-reloading during development
+        volumes:
+            - "./app-server/src:/usr/local/app-server/src" # automaticaly sync local changes to Docker container
+       

@@ -1,0 +1,15 @@
+{
+    "name": "app-server",
+    "version": "1.0.0",
+    "description": "app-server",
+    "repository": "https://github.com/vburlai/chat-design-demo",
+    "main": "main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "socket.io": "^2.3.0"
+    },
+    "license": "GPL-3.0-or-later"
+}
