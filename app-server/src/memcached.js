@@ -37,7 +37,7 @@ const memcachedFilterFromArray = (key, filter, lifetime) =>
             json = "[]";
         }
         const arr = JSON.parse(json); // JSON required for compatibility with PHP
-        return memcachedSet(key, SON.stringify(arr.filter(filter)), lifetime);
+        return memcachedSet(key, JSON.stringify(arr.filter(filter)), lifetime);
     });
 
 module.exports = { memcached, memcachedGet, memcachedSet, memcachedAddToArray, memcachedFilterFromArray };
