@@ -33,9 +33,6 @@ function showJoinForm() {
         </div>
     </form>
 `;
-    setTimeout(() => {
-
-    }, 0);
     document.getElementById('username').value = username;
 
     return new Promise((resolve) => {

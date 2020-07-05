@@ -1,0 +1,40 @@
+#main FORM {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.chat-title {
+    display: flex;
+}
+
+.chat-title[data-chat=chat-1] {
+    background-color: red;
+}
+
+.chat-title[data-chat=chat-2] {
+    background-color: green;
+}
+
+.chat-title .text {
+    flex: 1;
+}
+
+#leave-chat {
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.msgs {
+    flex: 1;
+}
+
+.send-msg {
+    display: flex;
+}
+
+.send-msg INPUT[type=text] {
+    flex: 1;
+}
