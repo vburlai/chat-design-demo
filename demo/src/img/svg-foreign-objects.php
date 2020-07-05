@@ -37,4 +37,58 @@ $svgForeignObjects = <<<EOF
     id="database"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
 </foreignObject>
+<foreignObject
+    y="37.615704"
+    x="17.495676"
+    height="19.245243"
+    width="93.60186">
+<xhtml:pre
+    id="client-1"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    x="17.495676"
+    y="101.61571"
+    height="19.245243"
+    width="93.60186">
+<xhtml:pre
+    id="client-2"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    y="165.61571"
+    x="17.495676"
+    height="19.245243"
+    width="93.60186">
+<xhtml:pre
+    id="client-3"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    x="17.495676"
+    y="229.61571"
+    width="93.60186"
+    height="19.245243">
+<xhtml:pre
+    id="client-4"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    y="293.61572"
+    x="17.495676"
+    height="19.245243"
+    width="93.60186">
+<xhtml:pre
+    id="client-5"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    x="17.495676"
+    y="357.61572"
+    width="93.60186"
+    height="19.245243">
+<xhtml:pre
+    id="client-6"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
+</foreignObject>
 EOF;
