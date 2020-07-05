@@ -3,29 +3,27 @@ const memcached = require('./memcached');
 const { memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
 
 const ioConnection = (socket) => {
-    socket.on('join', ({ clientId, chat }) => {
-        // sockets.set(getHash(hostname, clientId, chat), socket);
+    socket.on('join', ({ clientId, room }) => {
         // create message topic - MQ
         //  on message - send it
 
-        memcachedAddToArray(`chat_${chat}`, { hostname, clientId, chat }, 0)
+        memcachedAddToArray(`room_${room}`, { hostname, clientId, room }, 0)
             // insert to DB
             .then((res) => {
-                socket.emit('joined', { clientId, chat, hostname: res ? hostname : null });
+                socket.emit('joined', { clientId, room, hostname: res ? hostname : null });
             });
     });
-    socket.on('msg', ({ clientId, chat, message }) => {
-        console.log('msg', { clientId, chat, message });
-        // get all from chat - cache
+    socket.on('msg', ({ clientId, room, message }) => {
+        console.log('msg', { clientId, room, message });
+        // get all from room - cache
         // send each one message - MQ
         // send to log topic - MQ
     });
-    socket.on('leave', ({ clientId, chat }) => {
-        // sockets.delete(getHash(hostname, clientId, chat));
-        memcachedFilterFromArray(`chat_${chat}`, el =>
+    socket.on('leave', ({ clientId, room }) => {
+        memcachedFilterFromArray(`room_${room}`, el =>
             el.hostname !== hostname ||
             el.clientId !== clientId ||
-            el.chat !== chat
+            el.room !== room
             , 0); // then()
         // delete fron DB
         // delete message topic - MQ

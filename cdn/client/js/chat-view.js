@@ -1,22 +1,35 @@
 const title = {
-    'chat-1': 'Chat 1',
-    'chat-2': 'Chat 2',
+    'room-1': 'Room 1',
+    'room-2': 'Room 2',
 }
 
-function showChatView({ clientId, hostname, chat, username, socket }) {
+function showChatView({ clientId, hostname, room, username, socket }) {
+    const info1 = 'Client gets unique ID when connecting to server. ' +
+        'For demo purposes we\'ve hard-coded client IDs in the URLs. ' +
+        'They correspond to elements in system design chart.';
+
+    const info2 = 'We have WebSocket connection through load balancer to this server.';
+
     document.getElementById('main').innerHTML = `
     <form id="chat-form">
-        <div class="chat-title" data-chat="${chat}">
-            <div class="text">${title[chat]}</div>
+        <div class="chat-title" data-room="${room}">
+            <div class="text">${title[room]}</div>
             <button id="leave-chat">x</button>
         </div>
-        <div>clientId: ${clientId}</div>
-        <div>Server: ${hostname}</div>
-        <div class="msgs">Messages</div>
-        <div class="send-msg">
-            <div>${username}: </div>
-            <input type="text" id="chat-msg" name="msg">
-            <input type="submit" value="Send">
+        <div class="chat-wrapper">
+            <div>
+                <span class="info" title="${info1}">i</span>
+                <span> clientId: ${clientId}</span>
+            </div>
+            <div>
+                <span class="info" title="${info2}">i</span>
+                <span> Server: ${hostname}</span>
+            </div>
+            <div class="msgs">Messages</div>
+            <div class="send-msg">
+                <input type="text" id="chat-msg" name="msg" placeholder="Input message here" autocomplete="off">
+                <input type="submit" value="Send">
+            </div>
         </div>
     </form>
 `;
@@ -26,7 +39,7 @@ function showChatView({ clientId, hostname, chat, username, socket }) {
 
         socket.emit('msg', {
             clientId,
-            chat,
+            room,
             message: document.getElementById('chat-msg').value,
         });
         document.getElementById('chat-msg').value = '';
@@ -37,7 +50,7 @@ function showChatView({ clientId, hostname, chat, username, socket }) {
             event.preventDefault();
             event.stopPropagation();
 
-            socket.emit('leave', { clientId, chat });
+            socket.emit('leave', { clientId, room });
             resolve();
         });
     });

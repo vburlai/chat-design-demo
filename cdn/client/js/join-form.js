@@ -9,7 +9,7 @@ function getQueryParams() {
 }
 
 function showJoinForm() {
-    const { chat = 'chat-1', username = 'Anonymous', clientId = 'client-0' } = getQueryParams();
+    const { room = 'room-1', username = 'Anonymous', clientId = 'client-0' } = getQueryParams();
 
     document.getElementById('main').innerHTML = `
     <form id="join-form">
@@ -17,14 +17,14 @@ function showJoinForm() {
             <div class="join-form-main">
                 <div>Join chat:</div>
                 <div>
-                    <input type="radio" name="chat" id="chat-1"
-                     value="chat-1"${chat === 'chat-1' ? ' checked' : ''}>
-                    <label for="chat-1">Chat 1</label>
+                    <input type="radio" name="room" id="room-1"
+                     value="room-1"${room === 'room-1' ? ' checked' : ''}>
+                    <label for="room-1">Room 1</label>
                 </div>
                 <div>
-                    <input type="radio" name="chat" id="chat-2"
-                     value="chat-2"${chat === 'chat-2' ? ' checked' : ''}>
-                    <label for="chat-2">Chat 2</label>
+                    <input type="radio" name="room" id="room-2"
+                     value="room-2"${room === 'room-2' ? ' checked' : ''}>
+                    <label for="room-2">Room 2</label>
                 </div>
                 <label class="username" for="username">With username:</label>
                 <input type="text" id="username" name="username" />
@@ -42,7 +42,7 @@ function showJoinForm() {
 
             resolve({
                 clientId,
-                chat: document.getElementById('join-form').chat.value,
+                room: document.getElementById('join-form').room.value,
                 username: document.getElementById('join-form').username.value,
             });
         });
