@@ -13,7 +13,7 @@ body {
     flex-direction: column;
 }
 
-.svg {
+#svg {
     min-height: 43vw;
     flex: 0;
     display: flex;

@@ -4,6 +4,8 @@ services:
     demo:
         container_name: demo
         build: ./demo # will use demo/Dockerfile
+        environment:
+            - MEMCACHED_ADDR=cache:11211
         ports:
             - "3000:80" # http://localhost:3000/ -> http://demo:80/
         # Volumes can be added for live-reloading during development
@@ -56,3 +58,4 @@ services:
         build: ./cache # will use cache/Dockerfile
         ports:
             - "11211" # allow other containers to connect
+            - "3005:11211" # telnet localhost 3005 -> telnet cache 11211

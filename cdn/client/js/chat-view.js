@@ -3,7 +3,7 @@ const title = {
     'room-2': 'Room 2',
 }
 
-function showChatView({ clientId, hostname, room, username, socket }) {
+function showChatView({ config, hostname, room, username, socket }) {
     const info1 = 'Client gets unique ID when connecting to server. ' +
         'For demo purposes we\'ve hard-coded client IDs in the URLs. ' +
         'They correspond to elements in system design chart.';
@@ -19,7 +19,7 @@ function showChatView({ clientId, hostname, room, username, socket }) {
         <div class="chat-wrapper">
             <div>
                 <span class="info" title="${info1}">i</span>
-                <span> clientId: ${clientId}</span>
+                <span> clientId: ${config.clientId}</span>
             </div>
             <div>
                 <span class="info" title="${info2}">i</span>
@@ -38,9 +38,9 @@ function showChatView({ clientId, hostname, room, username, socket }) {
         event.stopPropagation();
 
         socket.emit('msg', {
-            clientId,
+            clientId: config.clientId,
             room,
-            message: document.getElementById('chat-msg').value,
+            message: `${username}: ${document.getElementById('chat-msg').value}`,
         });
         document.getElementById('chat-msg').value = '';
     });
@@ -50,7 +50,7 @@ function showChatView({ clientId, hostname, room, username, socket }) {
             event.preventDefault();
             event.stopPropagation();
 
-            socket.emit('leave', { clientId, room });
+            socket.emit('leave', { clientId: config.clientId, room, hostname });
             resolve();
         });
     });

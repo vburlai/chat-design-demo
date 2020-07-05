@@ -19,7 +19,7 @@ const ioConnection = (socket) => {
         // send each one message - MQ
         // send to log topic - MQ
     });
-    socket.on('leave', ({ clientId, room }) => {
+    socket.on('leave', ({ clientId, room, hostname }) => {
         memcachedFilterFromArray(`room_${room}`, el =>
             el.hostname !== hostname ||
             el.clientId !== clientId ||

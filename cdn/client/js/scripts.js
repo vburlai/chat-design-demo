@@ -1,9 +1,7 @@
-const SERVER = 'http://localhost:3002'; // load-balancer for App servers
-
-const loaded = new Set();
+const loadedCSS = new Set();
 
 function loadCSS(url) {
-    if (loaded.has(url)) {
+    if (loadedCSS.has(url)) {
         return;
     }
     const el = document.createElement('link');
@@ -11,36 +9,38 @@ function loadCSS(url) {
     el.href = url;
     document.head.appendChild(el);
     return new Promise((resolve) => {
-        loaded.add(url);
+        loadedCSS.add(url);
         el.addEventListener('load', () => resolve());
     })
 }
 
-async function joinChat({ socket }) {
+async function joinChat({ config, socket }) {
     await loadCSS('./css/join-form.css');
     const { showJoinForm } = await import('./join-form.js');
-    const { clientId, room, username } = await showJoinForm();
+    const { room, username } = await showJoinForm({ config });
 
-    socket.emit('join', { clientId, room });
+    socket.emit('join', { clientId: config.clientId, room });
 
     const { hostname } = await new Promise((resolve) => {
         socket.on('joined', (data) => resolve(data));
     });
-    return { clientId, room, username, hostname };
+    return { room, username, hostname };
 }
 
-async function chatView({ clientId, room, username, hostname, socket }) {
+async function chatView({ config, room, username, hostname, socket }) {
     await loadCSS('./css/chat-view.css');
     const { showChatView } = await import('./chat-view.js');
-    await showChatView({ clientId, room, username, hostname, socket });
+    await showChatView({ config, room, username, hostname, socket });
 }
 
 async function init() {
-    const socket = io(SERVER);
+    const { getConfigFromUrl } = await import('./config-from-url.js');
+    const config = getConfigFromUrl();
+    const socket = io(config.backend);
 
     while (true) {
-        const { clientId, room, username, hostname } = await joinChat({ socket });
-        await chatView({ clientId, room, username, hostname, socket });
+        const { room, username, hostname } = await joinChat({ config, socket });
+        await chatView({ config, room, username, hostname, socket });
     }
 }
 
