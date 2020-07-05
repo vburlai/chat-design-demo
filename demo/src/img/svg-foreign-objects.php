@@ -1,0 +1,40 @@
+<?php
+
+$svgForeignObjects = <<<EOF
+<foreignObject
+    height="75"
+    width="180"
+    y="15"
+    x="293">
+<xhtml:pre
+    id="app-server-1"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    y="297.20996"
+    x="292.1601"
+    height="82.614166"
+    width="181.70081">
+<xhtml:pre
+    id="app-server-2"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    width="154.70862"
+    height="154.07875"
+    x="602.50134"
+    y="10.892388">
+<xhtml:pre
+    id="message-queue"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
+</foreignObject>
+<foreignObject
+    y="10.892388"
+    x="763.77429"
+    height="243.74803"
+    width="181.70074">
+<xhtml:pre
+    id="database"
+    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
+</foreignObject>
+EOF;
