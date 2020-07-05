@@ -30,6 +30,7 @@ services:
         build: ./app-server # will use app-server/Dockerfile
         environment:
             - APP_SERVER_HOSTNAME=app-server1
+            - MEMCACHED_ADDR=cache:11211
         ports:
             - "8000" # allow other containers to connect
             - "3003:8000" # http://localhost:3003/ -> http://app-server:8000/
@@ -42,10 +43,16 @@ services:
         build: ./app-server # will use app-server/Dockerfile
         environment:
             - APP_SERVER_HOSTNAME=app-server2
+            - MEMCACHED_ADDR=cache:11211
         ports:
             - "8000" # allow other containers to connect
             - "3004:8000" # http://localhost:3004/ -> http://app-server:8000/
         # Volumes can be added for live-reloading during development
         volumes:
             - "./app-server/src:/usr/local/app-server/src" # automaticaly sync local changes to Docker container
-       
+
+    cache:
+        container_name: cache
+        build: ./cache # will use cache/Dockerfile
+        ports:
+            - "11211" # allow other containers to connect

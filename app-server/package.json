@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "express": "^4.17.1",
+        "memcached": "^2.2.2",
         "socket.io": "^2.3.0"
     },
     "license": "GPL-3.0-or-later"

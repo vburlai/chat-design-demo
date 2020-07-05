@@ -9,7 +9,7 @@ function getQueryParams() {
 }
 
 function showJoinForm() {
-    const { chat = 'chat-1', username = 'Anonymous' } = getQueryParams();
+    const { chat = 'chat-1', username = 'Anonymous', clientId = 'client-0' } = getQueryParams();
 
     document.getElementById('main').innerHTML = `
     <form id="join-form">
@@ -44,6 +44,7 @@ function showJoinForm() {
             event.stopPropagation();
 
             resolve({
+                clientId,
                 chat: document.getElementById('join-form').chat.value,
                 username: document.getElementById('join-form').username.value,
             });
