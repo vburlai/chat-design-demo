@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/node
-FROM node:12.18
+FROM node:12.18-alpine
 
 RUN mkdir /usr/local/app-server
 COPY ./package.json ./package-lock.json /usr/local/app-server/
