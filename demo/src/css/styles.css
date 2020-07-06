@@ -14,7 +14,7 @@ body {
 }
 
 #svg {
-    min-height: 43vw;
+    min-height: 41vw;
     flex: 0;
     display: flex;
     align-items: center;
