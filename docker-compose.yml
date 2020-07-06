@@ -59,3 +59,12 @@ services:
         ports:
             - "11211" # allow other containers to connect
             - "3005:11211" # telnet localhost 3005 -> telnet cache 11211
+
+    message-queue:
+        container_name: message-queue
+        build: ./message-queue # will use message-queue/Dockerfile
+        environment: 
+            - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=200MiB # lower default memory limit
+        ports:
+            - "5672" # allow other containers to connect
+            - "3006:15672" # http://localhost:3006/ -> http://message-queue:15672/
