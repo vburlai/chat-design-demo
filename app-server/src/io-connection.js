@@ -1,26 +1,32 @@
 const { hostname } = require('./env');
-const memcached = require('./memcached');
 const { memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
+const { messageQueueConsume, messageQueueSend } = require('./message-queue');
+
+const roomId = room => `room_${room}`;
+
+const queueId = (clientId) => `client_${clientId}_at_${hostname}`;
 
 const ioConnection = (socket) => {
     socket.on('join', ({ clientId, room }) => {
-        // create message topic - MQ
-        //  on message - send it
+        const repostMessages = msg => socket.emit('msg', msg.content.toString());
 
-        memcachedAddToArray(`room_${room}`, { hostname, clientId, room }, 0)
-            // insert to DB
+        Promise.resolve()
+            .then(() => messageQueueConsume(queueId(clientId), repostMessages))
+            .then(() => memcachedAddToArray(roomId(room), { hostname, clientId, room }, 0))
             .then((res) => {
                 socket.emit('joined', { clientId, room, hostname: res ? hostname : null });
             });
     });
     socket.on('msg', ({ clientId, room, message }) => {
         console.log('msg', { clientId, room, message });
+
+        messageQueueSend(queueId(clientId), message);
         // get all from room - cache
         // send each one message - MQ
         // send to log topic - MQ
     });
     socket.on('leave', ({ clientId, room, hostname }) => {
-        memcachedFilterFromArray(`room_${room}`, el =>
+        memcachedFilterFromArray(roomId(room), el =>
             el.hostname !== hostname ||
             el.clientId !== clientId ||
             el.room !== room

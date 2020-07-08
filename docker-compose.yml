@@ -23,16 +23,24 @@ services:
 
     load-balancer:
         container_name: load-balancer
+        depends_on: 
+            - app-server1
+            - app-server2
         build: ./load-balancer # will use load-balancer/Dockerfile
         ports:
             - "3002:80" # http://localhost:3002/ -> http://load-balancer:80/
 
     app-server1:
         container_name: app-server1
+        depends_on: 
+            - message-queue
         build: ./app-server # will use app-server/Dockerfile
+        env_file: 
+            - message-queue/.env # Message queue credentials
         environment:
             - APP_SERVER_HOSTNAME=app-server1
             - MEMCACHED_ADDR=cache:11211
+            - MESSAGE_QUEUE_ADDR=message-queue:5672
         ports:
             - "8000" # allow other containers to connect
             - "3003:8000" # http://localhost:3003/ -> http://app-server:8000/
@@ -42,10 +50,15 @@ services:
 
     app-server2:
         container_name: app-server2
+        depends_on: 
+            - message-queue
         build: ./app-server # will use app-server/Dockerfile
+        env_file: 
+            - message-queue/.env # Message queue credentials
         environment:
             - APP_SERVER_HOSTNAME=app-server2
             - MEMCACHED_ADDR=cache:11211
+            - MESSAGE_QUEUE_ADDR=message-queue:5672
         ports:
             - "8000" # allow other containers to connect
             - "3004:8000" # http://localhost:3004/ -> http://app-server:8000/
@@ -63,6 +76,8 @@ services:
     message-queue:
         container_name: message-queue
         build: ./message-queue # will use message-queue/Dockerfile
+        env_file: 
+            - message-queue/.env # Message queue credentials
         environment: 
             - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=200MiB # lower default memory limit
         ports:

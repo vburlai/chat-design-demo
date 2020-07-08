@@ -45,6 +45,8 @@ function showChatView({ config, hostname, room, username, socket }) {
         document.getElementById('chat-msg').value = '';
     });
 
+    socket.on('msg', msg => console.log(msg));
+
     return new Promise((resolve) => {
         document.getElementById('leave-chat').addEventListener('click', (event) => {
             event.preventDefault();
