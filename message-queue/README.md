@@ -11,7 +11,7 @@ We use [RabbitMQ](https://www.rabbitmq.com) message queue for this demo because:
  * RabbitMQ officially supports PHP and JavaScript - which are languages used in this demo
 
  RabbitMQ management console is available at [http://localhost:3006](http://localhost:3006).
- * Use login `guest`, password `guest`
+ * Use login `guest`, password `chat`
  * [This page](http://localhost:3006/#/queues) shows the list of currently registered queues
 
 More info:
