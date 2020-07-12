@@ -8,6 +8,14 @@ $mq_api = $_ENV['MESSAGE_QUEUE_HTTP_API_ADDR'];
 if (!is_string($mq_api)) {
     die("MESSAGE_QUEUE_HTTP_API_ADDR env variable is required");
 }
+$mq_admin_user = $_ENV['MQ_ADMIN_USERNAME'];
+if (!is_string($mq_admin_user)) {
+    die("MQ_ADMIN_USERNAME env variable is required");
+}
+$mq_admin_pass = $_ENV['MQ_ADMIN_PASSWORD'];
+if (!is_string($mq_admin_pass)) {
+    die("MQ_ADMIN_PASSWORD env variable is required");
+}
 
 $arr = explode(":", $cache_server);
 $m->addServer($arr[0], $arr[1]);
@@ -51,7 +59,7 @@ $message_queue = "";
 $c = curl_init();
 curl_setopt($c, CURLOPT_URL, $mq_api.'/queues');
 curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($c, CURLOPT_HTTPHEADER, array('Authorization: Basic '.base64_encode('guest:guest')));
+curl_setopt($c, CURLOPT_HTTPHEADER, array('Authorization: Basic '.base64_encode($mq_admin_user.':'.$mq_admin_pass)));
 $mq_queues = curl_exec($c);
 curl_close($c);
 

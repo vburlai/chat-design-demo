@@ -7,9 +7,7 @@ let messageQueue = null;
 
 const messageQueueConnect = async () => {
     if (!messageQueue) {
-        messageQueueConnection = await amqp.connect(`amqp://${messageQueueAddr}`, {
-            auth: `${encodeURIComponent(mqUsername)}:${encodeURIComponent(mqPassword)}`,
-        })
+        messageQueueConnection = await amqp.connect(`amqp://${mqUsername}:${mqPassword}@${messageQueueAddr}`);
         messageQueueConnection.on('close', () => {
             messageQueueConnection = null;
             messageQueue = null;

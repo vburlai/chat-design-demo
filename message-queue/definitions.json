@@ -1,0 +1,57 @@
+{
+    "rabbit_version": "3.8.5",
+    "rabbitmq_version": "3.8.5",
+    "product_name": "RabbitMQ",
+    "product_version": "3.8.5",
+    "users": [
+        {
+            "name": "chat-demo",
+            "password_hash": "tl91KAsFhnuGbeV6xEZGhRjKrIi5OZ/QGi0Ha4qkGyXMDbz8",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": ""
+        },
+        {
+            "name": "guest",
+            "password_hash": "GR3YXRD2kOtv3XPqYeDhc/QHi3K0y+/+Z6kOTQSqSHpFZvGl",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "administrator"
+        }
+    ],
+    "vhosts": [
+        {
+            "name": "/"
+        }
+    ],
+    "permissions": [
+        {
+            "user": "chat-demo",
+            "vhost": "/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        },
+        {
+            "user": "guest",
+            "vhost": "/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }
+    ],
+    "topic_permissions": [],
+    "parameters": [],
+    "global_parameters": [
+        {
+            "name": "cluster_name",
+            "value": "rabbit@message-queue"
+        },
+        {
+            "name": "internal_cluster_id",
+            "value": "rabbitmq-cluster-id-A35m8P-VtVhvHe-QjENssw"
+        }
+    ],
+    "policies": [],
+    "queues": [],
+    "exchanges": [],
+    "bindings": []
+}

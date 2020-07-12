@@ -4,6 +4,8 @@ services:
     demo:
         container_name: demo
         build: ./demo # will use demo/Dockerfile
+        env_file: 
+            - message-queue/.env # Message queue credentials
         environment:
             - MEMCACHED_ADDR=cache:11211
             - MESSAGE_QUEUE_HTTP_API_ADDR=http://message-queue:15672/api
@@ -80,6 +82,7 @@ services:
         env_file: 
             - message-queue/.env # Message queue credentials
         environment: 
+            - RABBITMQ_NODENAME=rabbit@message-queue
             - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=200MiB # lower default memory limit
         ports:
             - "5672" # allow other containers to connect
