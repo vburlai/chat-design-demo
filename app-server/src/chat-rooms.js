@@ -1,5 +1,5 @@
 const { hostname: myHostname } = require('./env');
-const { messageQueueConsume, messageQueueSend } = require('./message-queue');
+const { messageQueueConsume, messageQueueSend, messageQueueDelete } = require('./message-queue');
 const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
 
 const roomId = room => `room_${room}`;
@@ -43,7 +43,7 @@ const removeChatRoomMember = async (room, member) => {
         el.room !== room
         , 0)
     // delete fron DB
-    // delete message topic - MQ
+    await messageQueueDelete(queueId(member.clientId, myHostname));
 };
 
 module.exports = {
