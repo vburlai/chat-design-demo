@@ -10,6 +10,11 @@ We use [MySQL](https://www.mysql.com) relational database for this demo because:
  * It is easy to setup from Docker
  * MySQL officially supports PHP and JavaScript - which are languages used in this demo
 
+MySQL clients can access primary DB via `localhost:3007`.
+
+Alternatively, you can use MySQL client from inside Docker (password is `chat`):
+> docker exec -it db-primary mysql -p
+
 More info:
  * [PostgreSQL](https://en.wikipedia.org/wiki/PostgreSQL)
  * [SQL](https://en.wikipedia.org/wiki/SQL)
