@@ -3,7 +3,7 @@ const { messageQueueConsume, messageQueueSend, messageQueueDelete } = require('.
 const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
 
 const roomId = room => `room_${room}`;
-const queueId = (clientId, hostname = myHostname) => `client_${clientId}_at_${hostname}`;
+const queueId = (clientId, hostname = myHostname) => `mq_${clientId}_at_${hostname}`;
 
 const getChatRoomMembers = async (room) => {
     const res = await memcachedGetArray(roomId(room));
