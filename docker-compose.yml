@@ -6,6 +6,7 @@ services:
         build: ./demo # will use demo/Dockerfile
         environment:
             - MEMCACHED_ADDR=cache:11211
+            - MESSAGE_QUEUE_HTTP_API_ADDR=http://message-queue:15672/api
         ports:
             - "3000:80" # http://localhost:3000/ -> http://demo:80/
         # Volumes can be added for live-reloading during development
@@ -82,4 +83,5 @@ services:
             - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=200MiB # lower default memory limit
         ports:
             - "5672" # allow other containers to connect
+            - "15672" # allow other containers to connect
             - "3006:15672" # http://localhost:3006/ -> http://message-queue:15672/
