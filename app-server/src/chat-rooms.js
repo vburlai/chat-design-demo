@@ -39,7 +39,7 @@ const postToChatRoom = async (room, message) => {
 const removeChatRoomMember = async (room, member) => {
     await memcachedFilterFromArray(roomId(room), el =>
         el.clientId !== member.clientId ||
-        el.hostname !== hostname ||
+        el.hostname !== myHostname ||
         el.room !== room
         , 0)
     // delete fron DB
