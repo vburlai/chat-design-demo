@@ -1,4 +1,5 @@
 const loadedCSS = new Set();
+const loadedJS = new Set();
 
 function loadCSS(url) {
     if (loadedCSS.has(url)) {
@@ -10,6 +11,19 @@ function loadCSS(url) {
     document.head.appendChild(el);
     return new Promise((resolve) => {
         loadedCSS.add(url);
+        el.addEventListener('load', () => resolve());
+    })
+}
+
+function loadJS(url) {
+    if (loadedJS.has(url)) {
+        return;
+    }
+    const el = document.createElement('script');
+    el.src = url;
+    document.head.appendChild(el);
+    return new Promise((resolve) => {
+        loadedJS.add(url);
         el.addEventListener('load', () => resolve());
     })
 }
@@ -36,6 +50,7 @@ async function chatView({ config, room, username, hostname, socket }) {
 async function init() {
     const { getConfigFromUrl } = await import('./config-from-url.js');
     const config = getConfigFromUrl();
+    await loadJS(`${config.backend}/socket.io.js`);
     const socket = io(config.backend);
 
     while (true) {
