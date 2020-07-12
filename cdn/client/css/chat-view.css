@@ -48,8 +48,11 @@
     padding: 0.2rem;
 }
 
-.msgs {
+#msgs {
     flex: 1;
+    overflow: auto;
+    word-wrap: break-word;
+    line-height: 1.5rem;
 }
 
 .send-msg {

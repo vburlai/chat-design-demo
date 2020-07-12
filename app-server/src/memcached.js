@@ -22,6 +22,15 @@ const memcachedSet = (key, value, lifetime) => new Promise((resolve, reject) => 
     });
 });
 
+const memcachedGetArray = (key) =>
+    memcachedGet(key).then(json => {
+        if (!json) {
+            json = "[]";
+        }
+        const arr = JSON.parse(json); // JSON required for compatibility with PHP
+        return arr;
+    })
+
 const memcachedAddToArray = (key, value, lifetime) =>
     memcachedGet(key).then(json => {
         if (!json) {
@@ -41,4 +50,4 @@ const memcachedFilterFromArray = (key, filter, lifetime) =>
         return memcachedSet(key, JSON.stringify(arr.filter(filter)), lifetime);
     });
 
-module.exports = { memcached, memcachedGet, memcachedSet, memcachedAddToArray, memcachedFilterFromArray };
+module.exports = { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray };

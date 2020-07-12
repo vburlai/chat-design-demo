@@ -25,7 +25,8 @@ function showChatView({ config, hostname, room, username, socket }) {
                 <span class="info" title="${info2}">i</span>
                 <span> Server: ${hostname}</span>
             </div>
-            <div class="msgs">Messages</div>
+            <button id="load-msgs">Load All Messages</button>
+            <div id="msgs">Joined ${room}</div>
             <div class="send-msg">
                 <input type="text" id="chat-msg" name="msg" placeholder="Input message here" autocomplete="off">
                 <input type="submit" value="Send">
@@ -45,7 +46,28 @@ function showChatView({ config, hostname, room, username, socket }) {
         document.getElementById('chat-msg').value = '';
     });
 
-    socket.on('msg', msg => console.log(msg));
+    document.getElementById('load-msgs').addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        document.getElementById('load-msgs').disabled = true;
+        document.getElementById('msgs').innerHTML = 'Loading...';
+
+        setTimeout(() => socket.emit('load-msgs', { room }), 2000);
+
+        socket.on('msgs-loaded', ({ messages }) => {
+            const el = document.getElementById('msgs');
+            el.innerHTML = messages.join('<br>');
+            el.scrollTop = el.scrollHeight - el.offsetHeight;
+            document.getElementById('load-msgs').disabled = false;
+        });
+    });
+
+    socket.on('msg', msg => {
+        const el = document.getElementById('msgs');
+        el.innerHTML += `<br>${msg}`;
+        el.scrollTop = el.scrollHeight - el.offsetHeight;
+    });
 
     return new Promise((resolve) => {
         document.getElementById('leave-chat').addEventListener('click', (event) => {

@@ -1,25 +1,37 @@
-const { hostname } = require('./env');
+const { hostname: myHostname } = require('./env');
 const { messageQueueConsume, messageQueueSend } = require('./message-queue');
-const { memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
+const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
 
 const roomId = room => `room_${room}`;
-const queueId = (clientId) => `client_${clientId}_at_${hostname}`;
+const queueId = (clientId, hostname = myHostname) => `client_${clientId}_at_${hostname}`;
 
 const getChatRoomMembers = async (room) => {
-    return [{ clientId: 'client-1' }]
+    const res = await memcachedGetArray(roomId(room));
+    return res;
 };
 
 const addChatRoomMember = async (room, member, consumerFn) => {
     const { clientId } = member;
-    const entry = { hostname, clientId, room };
+    const entry = { hostname: myHostname, clientId, room };
     await messageQueueConsume(queueId(clientId), consumerFn);
     await memcachedAddToArray(roomId(room), entry, 0);
+};
+
+const getChatRoomMessages = async (room) => {
+    return [
+        "Client 1: Joined",
+        "Client 2: Joined",
+        "Client 3: Joined",
+        "Client 4: Joined",
+        "Client 5: Joined",
+        "Client 6: Joined",
+    ];
 };
 
 const postToChatRoom = async (room, message) => {
     const members = await getChatRoomMembers(room);
     await Promise.all(members.map(
-        ({ clientId }) => messageQueueSend(queueId(clientId), message)
+        ({ clientId, hostname }) => messageQueueSend(queueId(clientId, hostname), message)
     ))
     // send to log topic - MQ
 }
@@ -34,4 +46,10 @@ const removeChatRoomMember = async (room, member) => {
     // delete message topic - MQ
 };
 
-module.exports = { getChatRoomMembers, addChatRoomMember, postToChatRoom, removeChatRoomMember };
+module.exports = {
+    getChatRoomMembers,
+    addChatRoomMember,
+    getChatRoomMessages,
+    postToChatRoom,
+    removeChatRoomMember,
+};
