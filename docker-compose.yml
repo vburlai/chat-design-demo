@@ -88,3 +88,12 @@ services:
             - "5672" # allow other containers to connect
             - "15672" # allow other containers to connect
             - "3006:15672" # http://localhost:3006/ -> http://message-queue:15672/
+
+    db-primary:
+        container_name: db-primary
+        build: ./db-primary # will use db-primary/Dockerfile
+        env_file: 
+            - db-primary/.env # DB credentials
+        ports:
+            - "3306" # allow other containers to connect
+            - "3007:3306" # mysql localhost:3006  -> mysql db-primary:3306
