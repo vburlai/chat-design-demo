@@ -16,4 +16,5 @@ More info:
  * [NoSQL databases](https://en.wikipedia.org/wiki/NoSQL)
  * [MongoDB](https://en.wikipedia.org/wiki/MongoDB)
  * [PACELC theorem](https://en.wikipedia.org/wiki/PACELC_theorem)
+ * [MySQL Terminology Updates](https://mysqlhighavailability.com/mysql-terminology-updates/)
  
