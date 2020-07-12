@@ -22,8 +22,6 @@ const messageQueueConnect = async () => {
 const messageQueueCreate = async (mq, queue) => {
     return mq.assertQueue(queue, {
         durable: false,
-        exclusive: true,
-        autoDelete: true,
     });
 }
 
