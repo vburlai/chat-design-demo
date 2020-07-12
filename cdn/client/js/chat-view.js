@@ -14,7 +14,7 @@ function showChatView({ config, hostname, room, username, socket }) {
     <form id="chat-form">
         <div class="chat-title" data-room="${room}">
             <div class="text">${title[room]}</div>
-            <button id="leave-chat">x</button>
+            <button id="leave-chat" type="reset">x</button>
         </div>
         <div class="chat-wrapper">
             <div>
@@ -25,15 +25,18 @@ function showChatView({ config, hostname, room, username, socket }) {
                 <span class="info" title="${info2}">i</span>
                 <span> Server: ${hostname}</span>
             </div>
-            <button id="load-msgs">Load All Messages</button>
+            <button id="load-msgs" type="reset">Load All Messages</button>
             <div id="msgs">Joined ${room}</div>
             <div class="send-msg">
-                <input type="text" id="chat-msg" name="msg" placeholder="Input message here" autocomplete="off">
+                <input type="text" id="chat-msg" name="msg" placeholder="Input message here" autocomplete="off" tabindex="0">
                 <input type="submit" value="Send">
             </div>
         </div>
     </form>
 `;
+
+    document.getElementById('chat-msg').focus();
+
     document.getElementById('chat-form').addEventListener('submit', (event) => {
         event.preventDefault();
         event.stopPropagation();

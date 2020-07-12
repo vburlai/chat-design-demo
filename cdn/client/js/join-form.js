@@ -16,7 +16,7 @@ function showJoinForm({ config }) {
                     <label for="room-2">Room 2</label>
                 </div>
                 <label class="username" for="username">With username:</label>
-                <input type="text" id="username" name="username" />
+                <input type="text" id="username" name="username" tabindex="0" />
             </div>
             <div class="join-btn"><input type="submit" value="Join"></div>
         </div>
