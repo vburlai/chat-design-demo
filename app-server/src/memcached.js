@@ -7,6 +7,7 @@ const memcachedGet = (key) => new Promise((resolve, reject) => {
         if (err) {
             reject(err);
         }
+        console.log('memcachedGet', key, data);
         resolve(data);
     });
 });
