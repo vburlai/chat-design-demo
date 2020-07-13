@@ -17,10 +17,11 @@ const getChatRoomMembers = async (room) => {
 };
 
 const addChatRoomMember = async (room, member, consumerFn) => {
-    const { clientId } = member;
-    const entry = { hostname: myHostname, clientId, room };
+    const { clientId, username } = member;
+    const entry = { hostname: myHostname, clientId, room, username };
     await messageQueueConsume(queueId(clientId), consumerFn);
     await memcachedAddToArray(roomId(room), entry, 0);
+    await mysqlPrimaryQuery("INSERT INTO chat_users SET ?", entry);
 };
 
 const getChatRoomMessages = async (room) => {
@@ -48,7 +49,12 @@ const removeChatRoomMember = async (room, member) => {
         el.hostname !== myHostname ||
         el.room !== room
         , 0)
-    // delete fron DB
+    const results = await mysqlPrimaryQuery("DELETE FROM chat_users WHERE clientId = ? AND hostname = ? AND room = ?", [
+        member.clientId,
+        myHostname,
+        room,
+    ]);
+    console.log('deleted ' + results.affectedRows + ' rows');
     await messageQueueDelete(queueId(member.clientId, myHostname));
 };
 

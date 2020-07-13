@@ -20,10 +20,10 @@ const mysqlPrimaryConnect = async () => {
     }
 };
 
-const mysqlPrimaryQuery = async (query) => {
+const mysqlPrimaryQuery = async (query, replacements) => {
     await mysqlPrimaryConnect();
     const res = await new Promise((resolve, reject) => {
-        mysqlPrimaryConnection.query(query, (error, result, fields) => {
+        mysqlPrimaryConnection.query(query, replacements, (error, result, fields) => {
             if (error) { reject(error) };
             resolve(result);
         })

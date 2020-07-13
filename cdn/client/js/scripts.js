@@ -33,7 +33,7 @@ async function joinChat({ config, socket }) {
     const { showJoinForm } = await import('./join-form.js');
     const { room, username } = await showJoinForm({ config });
 
-    socket.emit('join', { clientId: config.clientId, room });
+    socket.emit('join', { clientId: config.clientId, room, username });
 
     const { hostname } = await new Promise((resolve) => {
         socket.on('joined', (data) => resolve(data));

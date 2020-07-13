@@ -1,7 +1,7 @@
 const { hostname } = require('../config/env');
 const { postToChatRoom, getChatRoomMessages, removeChatRoomMember, addChatRoomMember } = require('../controllers/chat-rooms');
 
-const repostMsg = socket => msg => socket.emit('msg', msg.content.toString());
+const repostMsg = socket => msg => socket && msg && socket.emit('msg', msg.content.toString());
 const ioConnection = (socket) => {
     socket.on('join', msg =>
         addChatRoomMember(msg.room, msg, repostMsg(socket))

@@ -21,6 +21,10 @@
     background-color: #daf5da;
 }
 
+.chat-title[data-room=room-3] {
+    background-color: #dbdbff;
+}
+
 .chat-title .text {
     flex: 1;
 }
