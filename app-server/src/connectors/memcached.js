@@ -1,5 +1,5 @@
 const Memcached = require('memcached');
-const { memcachedAddr } = require('./env');
+const { memcachedAddr } = require('../config/env');
 const memcached = new Memcached(memcachedAddr);
 
 const memcachedGet = (key) => new Promise((resolve, reject) => {

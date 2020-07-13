@@ -44,6 +44,10 @@ services:
             - APP_SERVER_HOSTNAME=app-server1
             - MEMCACHED_ADDR=cache:11211
             - MESSAGE_QUEUE_ADDR=message-queue:5672
+            - MYSQL_PRIMARY_HOST=db-primary
+            - MYSQL_PRIMARY_DATABASE=${DB_PRIMARY_DATABASE}
+            - MYSQL_PRIMARY_USER=${DB_PRIMARY_USER}
+            - MYSQL_PRIMARY_PASSWORD=${DB_PRIMARY_PASSWORD}
         ports:
             - "8000" # allow other containers to connect
             - "3003:8000" # http://localhost:3003/ -> http://app-server:8000/
@@ -62,6 +66,10 @@ services:
             - APP_SERVER_HOSTNAME=app-server2
             - MEMCACHED_ADDR=cache:11211
             - MESSAGE_QUEUE_ADDR=message-queue:5672
+            - MYSQL_PRIMARY_HOST=db-primary
+            - MYSQL_PRIMARY_DATABASE=${DB_PRIMARY_DATABASE}
+            - MYSQL_PRIMARY_USER=${DB_PRIMARY_USER}
+            - MYSQL_PRIMARY_PASSWORD=${DB_PRIMARY_PASSWORD}
         ports:
             - "8000" # allow other containers to connect
             - "3004:8000" # http://localhost:3004/ -> http://app-server:8000/
@@ -93,7 +101,11 @@ services:
         container_name: db-primary
         build: ./db-primary # will use db-primary/Dockerfile
         env_file: 
-            - db-primary/.env # DB credentials
+            - ./db-primary/.env # Primary DB secrets
+        environment: 
+            - MYSQL_DATABASE=${DB_PRIMARY_DATABASE}
+            - MYSQL_USER=${DB_PRIMARY_USER}
+            - MYSQL_PASSWORD=${DB_PRIMARY_PASSWORD}
         ports:
             - "3306" # allow other containers to connect
             - "3007:3306" # mysql localhost:3006  -> mysql db-primary:3306

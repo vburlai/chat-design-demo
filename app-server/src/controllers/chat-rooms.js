@@ -1,6 +1,6 @@
-const { hostname: myHostname } = require('./env');
-const { messageQueueConsume, messageQueueSend, messageQueueDelete } = require('./message-queue');
-const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('./memcached');
+const { hostname: myHostname } = require('../config/env');
+const { messageQueueConsume, messageQueueSend, messageQueueDelete } = require('../connectors/message-queue');
+const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('../connectors/memcached');
 
 const roomId = room => `room_${room}`;
 const queueId = (clientId, hostname = myHostname) => `mq_${clientId}_at_${hostname}`;

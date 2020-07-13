@@ -1,5 +1,5 @@
-const { hostname } = require('./env');
-const { postToChatRoom, getChatRoomMessages, removeChatRoomMember, addChatRoomMember } = require('./chat-rooms');
+const { hostname } = require('../config/env');
+const { postToChatRoom, getChatRoomMessages, removeChatRoomMember, addChatRoomMember } = require('../controllers/chat-rooms');
 
 const repostMsg = socket => msg => socket.emit('msg', msg.content.toString());
 const ioConnection = (socket) => {

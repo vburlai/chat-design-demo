@@ -1,6 +1,6 @@
 const amqp = require('amqplib');
 
-const { messageQueueAddr, mqUsername, mqPassword } = require('./env');
+const { messageQueueAddr, mqUsername, mqPassword } = require('../config/env');
 
 let messageQueueConnection = null;
 let messageQueue = null;
