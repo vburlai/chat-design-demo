@@ -1,7 +1,7 @@
-const { mysqlPrimaryQuery } = require("../../connectors/mysql");
+const { getChatRooms } = require("../../controllers/chat-rooms");
 
 const getRooms = async (req, res) => {
-    const result = await mysqlPrimaryQuery("SELECT * FROM chat_rooms");
+    const result = await getChatRooms();
 
     res.header('Content-type', 'application/javascript');
     res.send(result);

@@ -1,9 +1,15 @@
 const { hostname: myHostname } = require('../config/env');
 const { messageQueueConsume, messageQueueSend, messageQueueDelete } = require('../connectors/message-queue');
 const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('../connectors/memcached');
+const { mysqlPrimaryQuery } = require('../connectors/mysql');
 
 const roomId = room => `room_${room}`;
 const queueId = (clientId, hostname = myHostname) => `mq_${clientId}_at_${hostname}`;
+
+const getChatRooms = async () => {
+    const rooms = await mysqlPrimaryQuery("SELECT * FROM chat_rooms");
+    return rooms;
+};
 
 const getChatRoomMembers = async (room) => {
     const res = await memcachedGetArray(roomId(room));
@@ -47,6 +53,7 @@ const removeChatRoomMember = async (room, member) => {
 };
 
 module.exports = {
+    getChatRooms,
     getChatRoomMembers,
     addChatRoomMember,
     getChatRoomMessages,
