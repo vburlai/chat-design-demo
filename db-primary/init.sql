@@ -21,3 +21,13 @@ CREATE TABLE chat_users (
 
 CREATE INDEX chat_users_by_room
 ON chat_users (room);
+
+CREATE TABLE messages (
+    room VARCHAR(16) NOT NULL,
+    message VARCHAR(256),
+    sent TIMESTAMP not null DEFAULT now(),
+    FOREIGN KEY (room) REFERENCES chat_rooms(room_id)
+);
+
+CREATE INDEX messages_by_room
+ON messages (room);

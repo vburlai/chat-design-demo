@@ -28,15 +28,9 @@ const messageQueueConsume = async (queue, fn) => {
     return mq.consume(queue, fn);
 }
 
-const messageQueueSend = async (queue, message) => {
-    const mq = await messageQueueConnect();
-    await messageQueueCreate(mq, queue);
-    return mq.sendToQueue(queue, Buffer.from(message));
-}
-
 const messageQueueDelete = async (queue) => {
     const mq = await messageQueueConnect();
     return mq.deleteQueue(queue);
 }
 
-module.exports = { messageQueueConsume, messageQueueSend, messageQueueDelete };
+module.exports = { messageQueueConsume, messageQueueDelete };

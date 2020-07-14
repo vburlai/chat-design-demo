@@ -44,6 +44,7 @@ services:
             - APP_SERVER_HOSTNAME=app-server1
             - MEMCACHED_ADDR=cache:11211
             - MESSAGE_QUEUE_ADDR=message-queue:5672
+            - LOGGER_QUEUE=mq_logger
             - MYSQL_PRIMARY_HOST=db-primary
             - MYSQL_PRIMARY_DATABASE=${DB_PRIMARY_DATABASE}
             - MYSQL_PRIMARY_USER=${DB_PRIMARY_USER}
@@ -66,6 +67,7 @@ services:
             - APP_SERVER_HOSTNAME=app-server2
             - MEMCACHED_ADDR=cache:11211
             - MESSAGE_QUEUE_ADDR=message-queue:5672
+            - LOGGER_QUEUE=mq_logger
             - MYSQL_PRIMARY_HOST=db-primary
             - MYSQL_PRIMARY_DATABASE=${DB_PRIMARY_DATABASE}
             - MYSQL_PRIMARY_USER=${DB_PRIMARY_USER}
@@ -76,6 +78,21 @@ services:
         # Volumes can be added for live-reloading during development
         volumes:
             - "./app-server/src:/usr/local/app-server/src" # automaticaly sync local changes to Docker container
+    
+    logger:
+        container_name: logger
+        depends_on: 
+            - message-queue
+        build: ./logger # will use logger/Dockerfile
+        env_file: 
+            - message-queue/.env # Message queue credentials
+        environment:
+            - MESSAGE_QUEUE_ADDR=message-queue:5672
+            - LOGGER_QUEUE=mq_logger
+            - MYSQL_PRIMARY_HOST=db-primary
+            - MYSQL_PRIMARY_DATABASE=${DB_PRIMARY_DATABASE}
+            - MYSQL_PRIMARY_USER=${DB_PRIMARY_USER}
+            - MYSQL_PRIMARY_PASSWORD=${DB_PRIMARY_PASSWORD}
 
     cache:
         container_name: cache

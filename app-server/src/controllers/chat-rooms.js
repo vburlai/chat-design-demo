@@ -1,4 +1,4 @@
-const { hostname: myHostname } = require('../config/env');
+const { hostname: myHostname, loggerQueue } = require('../config/env');
 const { messageQueueConsume, messageQueueSend, messageQueueDelete } = require('../connectors/message-queue');
 const { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray } = require('../connectors/memcached');
 const { mysqlPrimaryQuery } = require('../connectors/mysql');
@@ -35,14 +35,13 @@ const addChatRoomMember = async (room, member, consumerFn) => {
 };
 
 const getChatRoomMessages = async (room) => {
-    return [
-        "Client 1: Joined",
-        "Client 2: Joined",
-        "Client 3: Joined",
-        "Client 4: Joined",
-        "Client 5: Joined",
-        "Client 6: Joined",
-    ];
+    const q =
+        'SELECT message' +
+        ' FROM messages' +
+        ' WHERE room = ?' +
+        ' ORDER BY sent ASC';
+    const res = await mysqlPrimaryQuery(q, [room]);
+    return res.map(row => row.message);
 };
 
 const postToChatRoom = async (room, message) => {
@@ -50,7 +49,7 @@ const postToChatRoom = async (room, message) => {
     await Promise.all(members.map(
         ({ clientId, hostname }) => messageQueueSend(queueId(clientId, hostname), message)
     ))
-    // send to log topic - MQ
+    await messageQueueSend(loggerQueue, JSON.stringify({ room, message }));
 }
 
 const removeChatRoomMember = async (room, member) => {

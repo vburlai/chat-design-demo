@@ -1,7 +1,7 @@
 {
-    "name": "app-server",
+    "name": "logger",
     "version": "1.0.0",
-    "description": "app-server",
+    "description": "logger",
     "repository": "https://github.com/vburlai/chat-design-demo",
     "main": "src/main.js",
     "scripts": {
@@ -9,10 +9,7 @@
     },
     "dependencies": {
         "amqplib": "^0.5.6",
-        "express": "^4.17.1",
-        "memcached": "^2.2.2",
-        "mysql": "^2.18.1",
-        "socket.io": "^2.3.0"
+        "mysql": "^2.18.1"
     },
     "license": "GPL-3.0-or-later"
 }
