@@ -26,8 +26,8 @@ const memcachedSetArray = (key, arr, lifetime) =>
     memcachedSet(key, JSON.stringify(arr), lifetime); // JSON required for compatibility with PHP
 
 const getFromDBWriteArrayToMemcache = async (key, getFromDB, lifetime) => {
-    const arr = getFromDB ? await getFromDB() : [];
-    await memcachedSetArray(key, JSON, lifetime);
+    const arr = getFromDB ? (await getFromDB()) : [];
+    await memcachedSetArray(key, arr, lifetime);
     return arr;
 }
 
