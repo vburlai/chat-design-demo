@@ -22,32 +22,30 @@ const memcachedSet = (key, value, lifetime) => new Promise((resolve, reject) => 
     });
 });
 
-const memcachedGetArray = (key) =>
-    memcachedGet(key).then(json => {
-        if (!json) {
-            json = "[]";
-        }
-        const arr = JSON.parse(json); // JSON required for compatibility with PHP
-        return arr;
-    })
+const memcachedSetArray = (key, arr, lifetime) =>
+    memcachedSet(key, JSON.stringify(arr), lifetime); // JSON required for compatibility with PHP
 
-const memcachedAddToArray = (key, value, lifetime) =>
-    memcachedGet(key).then(json => {
-        if (!json) {
-            json = "[]";
-        }
-        const arr = JSON.parse(json); // JSON required for compatibility with PHP
-        arr.push(value);
-        return memcachedSet(key, JSON.stringify(arr), lifetime);
-    });
+const getFromDBWriteArrayToMemcache = async (key, getFromDB, lifetime) => {
+    const arr = getFromDB ? await getFromDB() : [];
+    await memcachedSetArray(key, JSON, lifetime);
+    return arr;
+}
 
-const memcachedFilterFromArray = (key, filter, lifetime) =>
-    memcachedGet(key).then(json => {
-        if (!json) {
-            json = "[]";
-        }
-        const arr = JSON.parse(json); // JSON required for compatibility with PHP
-        return memcachedSet(key, JSON.stringify(arr.filter(filter)), lifetime);
-    });
+const memcachedGetArray = (key, getFromDB = null, lifetime = 0) =>
+    memcachedGet(key)
+        .then(json => json ? JSON.parse(json) : getFromDBWriteArrayToMemcache(key, getFromDB, lifetime));
 
-module.exports = { memcachedGetArray, memcachedAddToArray, memcachedFilterFromArray };
+const memcachedAddToArray = (key, value, getFromDB, lifetime) =>
+    memcachedGetArray(key, getFromDB, lifetime)
+        .then(arr => memcachedSetArray(key, arr.concat(value), lifetime));
+
+const memcachedFilterFromArray = (key, filter, getFromDB, lifetime) =>
+    memcachedGetArray(key, getFromDB, lifetime)
+        .then(arr => memcachedSetArray(key, arr.filter(filter), lifetime));
+
+module.exports = {
+    memcachedGetArray,
+    memcachedSetArray,
+    memcachedAddToArray,
+    memcachedFilterFromArray,
+};

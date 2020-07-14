@@ -11,8 +11,18 @@ const getChatRooms = async () => {
     return rooms;
 };
 
+const getChatRoomMembersFromDB = room => async () => {
+    const q =
+        'SELECT hostname, clientId, room, username' +
+        ' FROM chat_users' +
+        ' WHERE room = ?' +
+        ' ORDER BY joined ASC';
+    const members = await mysqlPrimaryQuery(q, [room])
+    return members;
+}
+
 const getChatRoomMembers = async (room) => {
-    const res = await memcachedGetArray(roomId(room));
+    const res = await memcachedGetArray(roomId(room), getChatRoomMembersFromDB(room), 0);
     return res;
 };
 
@@ -20,7 +30,7 @@ const addChatRoomMember = async (room, member, consumerFn) => {
     const { clientId, username } = member;
     const entry = { hostname: myHostname, clientId, room, username };
     await messageQueueConsume(queueId(clientId), consumerFn);
-    await memcachedAddToArray(roomId(room), entry, 0);
+    await memcachedAddToArray(roomId(room), entry, getChatRoomMembersFromDB(room), 0);
     await mysqlPrimaryQuery("INSERT INTO chat_users SET ?", entry);
 };
 
@@ -44,11 +54,11 @@ const postToChatRoom = async (room, message) => {
 }
 
 const removeChatRoomMember = async (room, member) => {
-    await memcachedFilterFromArray(roomId(room), el =>
+    const filterFn = el =>
         el.clientId !== member.clientId ||
         el.hostname !== myHostname ||
-        el.room !== room
-        , 0)
+        el.room !== room;
+    await memcachedFilterFromArray(roomId(room), filterFn, getChatRoomMembersFromDB(room), 0);
     const results = await mysqlPrimaryQuery("DELETE FROM chat_users WHERE clientId = ? AND hostname = ? AND room = ?", [
         member.clientId,
         myHostname,
