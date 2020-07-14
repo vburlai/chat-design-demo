@@ -17,7 +17,7 @@ CREATE TABLE chat_users (
     joined TIMESTAMP not null DEFAULT now(),
     PRIMARY KEY (clientId, hostname, room),
     FOREIGN KEY (room) REFERENCES chat_rooms(room_id)
-);
+) ENGINE = MEMORY; /* keep it in memory so Docker restarts will clear it */
 
 CREATE INDEX chat_users_by_room
 ON chat_users (room);
