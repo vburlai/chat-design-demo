@@ -36,7 +36,7 @@ async function joinChat({ config, socket }) {
     socket.emit('join', { clientId: config.clientId, room, username });
 
     const { hostname } = await new Promise((resolve) => {
-        socket.on('joined', (data) => resolve(data));
+        socket.once('joined', (data) => resolve(data));
     });
     return { room, username, hostname };
 }

@@ -56,9 +56,9 @@ function showChatView({ config, hostname, room, username, socket }) {
         document.getElementById('load-msgs').disabled = true;
         document.getElementById('msgs').innerHTML = 'Loading...';
 
-        setTimeout(() => socket.emit('load-msgs', { room }), 2000);
+        setTimeout(() => socket.emit('load-msgs', { room }), 1000);
 
-        socket.on('msgs-loaded', ({ messages }) => {
+        socket.once('msgs-loaded', ({ messages }) => {
             const el = document.getElementById('msgs');
             el.innerHTML = messages.join('<br>');
             el.scrollTop = el.scrollHeight - el.offsetHeight;
@@ -77,7 +77,8 @@ function showChatView({ config, hostname, room, username, socket }) {
             event.preventDefault();
             event.stopPropagation();
 
-            socket.emit('leave', { clientId: config.clientId, room, hostname });
+            socket.emit('leave', {});
+            socket.off();
             resolve();
         });
     });
