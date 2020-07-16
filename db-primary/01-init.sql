@@ -32,5 +32,12 @@ CREATE TABLE messages (
 CREATE INDEX messages_by_room
 ON messages (room);
 
+-- chat-rw account gets created by Docker entrypoint from env variables
+-- https://hub.docker.com/_/mysql
+-- Create chat-ro user here
+CREATE USER `chat-ro`@`%` IDENTIFIED WITH mysql_native_password AS '*1CBEED718E7A6ED7FF6F1052673CE854B36F678D';
+GRANT SELECT ON `chat-db`.* to `chat-ro`@`%`;
+
+-- Replication account
 CREATE USER 'replication'@'%' IDENTIFIED BY 'replication-password-plain-text';
 GRANT REPLICATION SLAVE ON *.* TO 'replication'@'%';

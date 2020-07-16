@@ -132,7 +132,7 @@ services:
         container_name: db-replica
         depends_on: 
             - db-primary
-        command: --server-id 1001
+        command: --server-id 1001 --log-bin=mysql-bin
         build: ./db-replica # will use db-replica/Dockerfile
         env_file: 
             - ./db-replica/.env # Replica DB secrets
@@ -143,4 +143,4 @@ services:
         ports:
             - "3306" # allow other containers to connect
             - "3008:3306" # mysql localhost:3008  -> mysql db-replica:3306
-        
+            
