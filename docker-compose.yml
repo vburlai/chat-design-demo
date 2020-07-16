@@ -9,6 +9,10 @@ services:
         environment:
             - MEMCACHED_ADDR=cache:11211
             - MESSAGE_QUEUE_HTTP_API_ADDR=http://message-queue:15672/api
+            - MYSQL_HOST=db-replica
+            - MYSQL_DATABASE=${DB_PRIMARY_DATABASE}
+            - MYSQL_USER=${DB_REPLICA_USER}
+            - MYSQL_PASSWORD=${DB_REPLICA_PASSWORD}
         ports:
             - "3000:80" # http://localhost:3000/ -> http://demo:80/
         # Volumes can be added for live-reloading during development
