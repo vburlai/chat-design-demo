@@ -89,10 +89,10 @@ if ($mq_queues) {
 }
 
 $mysql = mysqli_connect($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
-$users = $mysql->query("SELECT * FROM chat_users");
 $database="";
+$users = $mysql->query("SELECT * FROM chat_users");
 if ($users) {
-    $database = $database."<div style='width: 100%; overflow: auto; border: 1px solid grey'>";
+    $database = $database."chat_users<br><div style='width: 100%; overflow: auto; border: 1px solid grey'>";
     $database = $database."<table style='font-size: 10px;'><tr><th>clientId</th><th>Username</th><th>Server</th><th>Room</th></tr>";
     while($obj = $users->fetch_object()) {
         $database = $database.'<tr>';
@@ -101,6 +101,19 @@ if ($users) {
         $database = $database.'<td>'.$obj->hostname.'</td>';
         $database = $database.'<td>'.$obj->room.'</td>';
         // $database = $database.'<td>'.$obj->joined;
+        $database = $database.'</tr>';
+    }
+    $database = $database."</table>";
+    $database = $database."</div><br>";
+}
+$messages = $mysql->query("SELECT room, COUNT(*) as count FROM messages GROUP BY room;");
+if($messages) {
+    $database = $database."messages<br><div style='width: 100%; overflow: auto; border: 1px solid grey'>";
+    $database = $database."<table style='font-size: 10px;'><tr><th>room</th><th>count(*)</th></tr>";
+    while($obj = $messages->fetch_object()) {
+        $database = $database.'<tr>';
+        $database = $database.'<td>'.$obj->room.'</td>';
+        $database = $database.'<td>'.$obj->count.'</td>';
         $database = $database.'</tr>';
     }
     $database = $database."</table>";
