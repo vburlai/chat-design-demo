@@ -89,11 +89,11 @@ if ($mq_queues) {
 }
 
 $mysql = mysqli_connect($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
-$database="";
+$database="<style>table {font-size: 10px;} table th { text-align: left; } .wrapper{width: calc(100% - 3px); overflow: auto; border: 1px solid grey; margin-left: 1px;box-sizing: border-box;}</style>";
 $users = $mysql->query("SELECT * FROM chat_users");
 if ($users) {
-    $database = $database."chat_users<br><div style='width: 100%; overflow: auto; border: 1px solid grey'>";
-    $database = $database."<table style='font-size: 10px;'><tr><th>clientId</th><th>Username</th><th>Server</th><th>Room</th></tr>";
+    $database = $database."chat_users<br><div class='wrapper'>";
+    $database = $database."<table><tr><th>clientId</th><th>Name</th><th>Server</th><th>Room</th></tr>";
     while($obj = $users->fetch_object()) {
         $database = $database.'<tr>';
         $database = $database.'<td>'.$obj->clientId.'</td>';
@@ -108,8 +108,8 @@ if ($users) {
 }
 $messages = $mysql->query("SELECT room, COUNT(*) as count FROM messages GROUP BY room;");
 if($messages) {
-    $database = $database."messages<br><div style='width: 100%; overflow: auto; border: 1px solid grey'>";
-    $database = $database."<table style='font-size: 10px;'><tr><th>room</th><th>count(*)</th></tr>";
+    $database = $database."messages<br><div class='wrapper'>";
+    $database = $database."<table><tr><th>room</th><th>count(*)</th></tr>";
     while($obj = $messages->fetch_object()) {
         $database = $database.'<tr>';
         $database = $database.'<td>'.$obj->room.'</td>';
@@ -121,8 +121,8 @@ if($messages) {
 }
 
 $status = array(
-    "app-server-1" => $app_server_1 ? "<div style='height: 100%; overflow: auto;'>Connected:<br>&nbsp;".implode("<br>&nbsp;",$app_server_1)."</div>" : "",
-    "app-server-2" => $app_server_2 ? "<div style='height: 100%; overflow: auto;'>Connected:<br>&nbsp;".implode("<br>&nbsp;",$app_server_2)."</div>" : "",
+    "app-server-1" => "<div style='height: 100%; overflow: auto;'>Clients:<br>&nbsp;".($app_server_1 ? implode("<br>&nbsp;",$app_server_1) : "None")."</div>",
+    "app-server-2" => "<div style='height: 100%; overflow: auto;'>Clients:<br>&nbsp;".($app_server_2 ? implode("<br>&nbsp;",$app_server_2) : "None")."</div>",
     "database" => $database,
     "message-queue" => $message_queue,
     "client-1" => $clients['client-1'] ? $client_connected : $client_disconnected,
