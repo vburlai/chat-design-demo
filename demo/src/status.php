@@ -106,14 +106,16 @@ if ($users) {
     $database = $database."</table>";
     $database = $database."</div><br>";
 }
-$messages = $mysql->query("SELECT room, COUNT(*) as count FROM messages GROUP BY room;");
+$subquery = "SELECT room, MAX(sent) as max_sent FROM messages GROUP BY room";
+$condition = "t1.room = t2.room AND t1.sent = t2.max_sent";
+$messages = $mysql->query("SELECT t2.room as room, message FROM messages t1 INNER JOIN (".$subquery.") t2 ON ".$condition);
 if($messages) {
     $database = $database."messages<br><div class='wrapper'>";
-    $database = $database."<table><tr><th>room</th><th>count(*)</th></tr>";
+    $database = $database."<table><tr><th>room</th><th>last message</th></tr>";
     while($obj = $messages->fetch_object()) {
         $database = $database.'<tr>';
         $database = $database.'<td>'.$obj->room.'</td>';
-        $database = $database.'<td>'.$obj->count.'</td>';
+        $database = $database.'<td>'.$obj->message.'</td>';
         $database = $database.'</tr>';
     }
     $database = $database."</table>";
