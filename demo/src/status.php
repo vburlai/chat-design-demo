@@ -13,20 +13,16 @@ require_once(__DIR__.'/views/database.php');
 require_once(__DIR__.'/views/app-server.php');
 require_once(__DIR__.'/views/clients.php');
 
-$clients = getClientsHTML($memcached_rooms);
-
-$status = array(
+$clientIds = array('client-1', 'client-2', 'client-3', 'client-4', 'client-5', 'client-6');
+$clients = getClientsHTML($memcached_rooms, $clientIds);
+$others = array(
     "app-server-1" => getAppServerHTML('app-server1', $memcached_rooms),
     "app-server-2" => getAppServerHTML('app-server2', $memcached_rooms),
     "database" => getDatabaseHTML($mysql),
-    "message-queue" => getActiveQueuesHTML($config),
-    "client-1" => $clients['client-1'],
-    "client-2" => $clients['client-2'],
-    "client-3" => $clients['client-3'],
-    "client-4" => $clients['client-4'],
-    "client-5" => $clients['client-5'],
-    "client-6" => $clients['client-6'],
+    "message-queue" => getActiveQueuesHTML($config)
 );
+
+$status = array_merge($clients, $others);
 
 header('Content-type: application/json');
 

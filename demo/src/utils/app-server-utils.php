@@ -19,7 +19,7 @@ function getActiveClients($rooms) {
     foreach($rooms as $room) {
         if ($room) {
             foreach($room as $participant) {
-                $clients[$participant->clientId] = true;
+                $res[$participant->clientId] = true;
             }
         }
     }

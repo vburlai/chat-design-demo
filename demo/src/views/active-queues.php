@@ -1,4 +1,5 @@
 <?php
+
 require_once(__DIR__.'/../connectors/curl.php');
 
 function getActiveQueuesHTML($config) {
