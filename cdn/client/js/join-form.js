@@ -15,7 +15,7 @@ function showJoinForm({ config }) {
                      value="room-2"${config.defaultRoom === 'room-2' ? ' checked' : ''}>
                     <label for="room-2">Room 2</label>
                 </div>
-                <label class="username" for="username">With username:</label>
+                <label class="username" for="username">With name:</label>
                 <input type="text" id="username" name="username" tabindex="0" />
             </div>
             <div class="join-btn"><input type="submit" value="Join"></div>
