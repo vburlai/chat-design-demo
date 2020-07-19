@@ -10,14 +10,13 @@ $mysql = mysqlConnect($config);
 
 require_once(__DIR__.'/views/active-queues.php');
 require_once(__DIR__.'/views/database.php');
-require_once(__DIR__.'/views/app-server.php');
+require_once(__DIR__.'/views/app-servers.php');
 require_once(__DIR__.'/views/clients.php');
 
 $clientIds = array('client-1', 'client-2', 'client-3', 'client-4', 'client-5', 'client-6');
 $clients = getClientsHTML($memcached_rooms, $clientIds);
 $others = array(
-    "app-server-1" => getAppServerHTML('app-server1', $memcached_rooms),
-    "app-server-2" => getAppServerHTML('app-server2', $memcached_rooms),
+    "app-servers" => getAppServersHTML(array('app-server1', 'app-server2'), $memcached_rooms),
     "database" => getDatabaseHTML($mysql),
     "message-queue" => getActiveQueuesHTML($config)
 );

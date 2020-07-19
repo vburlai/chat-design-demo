@@ -2,91 +2,91 @@
 
 $svgForeignObjects = <<<EOF
 <foreignObject
-    height="75"
-    width="180"
-    y="15"
-    x="293">
-<xhtml:pre
-    id="app-server-1"
-    style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
-</foreignObject>
-<foreignObject
-    y="297.20996"
+    width="181.70081"
+    height="83.307091"
     x="292.1601"
-    height="82.614166"
-    width="181.70081">
+    y="10.892388"
+>
 <xhtml:pre
-    id="app-server-2"
+    id="app-servers"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    width="154.70862"
-    height="154.07875"
-    x="602.50134"
-    y="10.892388">
+    width="198.20473"
+    height="127.2756"
+    x="510.94751"
+    y="10.892388"
+>
 <xhtml:pre
     id="message-queue"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
 </foreignObject>
 <foreignObject
+    x="754.2572"
     y="10.892388"
-    x="763.77429"
-    height="243.74803"
-    width="181.70074">
+    width="201.07085"
+    height="297.10236"
+>
 <xhtml:pre
     id="database"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    y="37.615704"
-    x="17.495676"
-    height="19.245243"
-    width="93.60186">
+    x="15.206103"
+    y="73.882202"
+    width="94.821671"
+    height="19.426477"
+>
 <xhtml:pre
     id="client-1"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    x="17.495676"
-    y="101.61571"
-    height="19.245243"
-    width="93.60186">
+    x="15.206103"
+    y="125.8822"
+    width="94.821671"
+    height="19.426477"
+>
 <xhtml:pre
     id="client-2"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    y="165.61571"
-    x="17.495676"
-    height="19.245243"
-    width="93.60186">
+    x="15.206103"
+    y="179.8822"
+    width="94.821671"
+    height="19.426477"
+>
 <xhtml:pre
     id="client-3"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    x="17.495676"
-    y="229.61571"
-    width="93.60186"
-    height="19.245243">
+    x="15.206103"
+    y="233.8822"
+    width="94.821671"
+    height="19.426477"
+>
 <xhtml:pre
     id="client-4"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    y="293.61572"
-    x="17.495676"
-    height="19.245243"
-    width="93.60186">
+    x="15.206103"
+    y="285.8822"
+    width="94.821671"
+    height="19.426477"
+>
 <xhtml:pre
     id="client-5"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
 </foreignObject>
 <foreignObject
-    x="17.495676"
-    y="357.61572"
-    width="93.60186"
-    height="19.245243">
+    x="15.206103"
+    y="337.8822"
+    width="94.821671"
+    height="19.426477"
+>
 <xhtml:pre
     id="client-6"
     style="margin:0;font-size:12px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;display:block;text-align:center;"></xhtml:pre>
