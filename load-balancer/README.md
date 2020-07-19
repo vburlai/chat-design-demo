@@ -13,7 +13,7 @@ We use [HAProxy](http://www.haproxy.org) load balancer with sticky sessions sett
 
  > Load balancer uses `SERVERID` cookie to keep the session consistent.
  >
- > Since cookies are shared accross domain we had to make half of clients load as http://localhost:3002/ and another half as http://127.0.0.1:3002/ (which is exactly the same entity but technically different domain names).
+ > Since cookies are shared accross domain we had to make half of clients connect to http://localhost:3002/ and another half to http://127.0.0.1:3002/ (which is exactly the same entity but technically different domain names).
  >
  > This way `localhost` gets `SERVERID=app-server-cookie-1` cookie and `127.0.0.1` gets `SERVERID=app-server-cookie-2`.
 
