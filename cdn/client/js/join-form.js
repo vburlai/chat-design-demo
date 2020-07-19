@@ -1,20 +1,19 @@
 
-function showJoinForm({ config }) {
+function showJoinForm({ config, chatRooms }) {
+    const rooms = chatRooms.map(({ room_id, name }) => `
+    <div>
+        <input type="radio" name="room" id="${room_id}"
+            value="${room_id}"${config.defaultRoom === room_id ? ' checked' : ''}>
+        <label for="${room_id}">${name}</label>
+    </div>
+    `);
+
     document.getElementById('main').innerHTML = `
     <form id="join-form">
         <div class="join-form">
             <div class="join-form-main">
                 <div>Join chat:</div>
-                <div>
-                    <input type="radio" name="room" id="room-1"
-                     value="room-1"${config.defaultRoom === 'room-1' ? ' checked' : ''}>
-                    <label for="room-1">Room 1</label>
-                </div>
-                <div>
-                    <input type="radio" name="room" id="room-2"
-                     value="room-2"${config.defaultRoom === 'room-2' ? ' checked' : ''}>
-                    <label for="room-2">Room 2</label>
-                </div>
+                ${rooms.join('\n')}
                 <label class="username" for="username">With name:</label>
                 <input type="text" id="username" name="username" tabindex="0" />
             </div>

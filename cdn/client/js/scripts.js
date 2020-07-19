@@ -28,10 +28,10 @@ function loadJS(url) {
     })
 }
 
-async function joinChat({ config, socket }) {
+async function joinChat({ config, socket, chatRooms }) {
     await loadCSS('./css/join-form.css');
     const { showJoinForm } = await import('./join-form.js');
-    const { room, username } = await showJoinForm({ config });
+    const { room, username } = await showJoinForm({ config, chatRooms });
 
     socket.emit('join', { clientId: config.clientId, room, username });
 
@@ -41,21 +41,23 @@ async function joinChat({ config, socket }) {
     return { room, username, hostname };
 }
 
-async function chatView({ config, room, username, hostname, socket }) {
+async function chatView({ config, room, username, hostname, socket, chatRooms }) {
     await loadCSS('./css/chat-view.css');
     const { showChatView } = await import('./chat-view.js');
-    await showChatView({ config, room, username, hostname, socket });
+    await showChatView({ config, room, username, hostname, socket, chatRooms });
 }
 
 async function init() {
     const { getConfigFromUrl } = await import('./config-from-url.js');
     const config = getConfigFromUrl();
+    const { getRooms } = await import('./rooms.js');
+    const chatRooms = await getRooms({ config });
     await loadJS(`${config.backend}/socket.io.js`);
     const socket = io(config.backend);
 
     while (true) {
-        const { room, username, hostname } = await joinChat({ config, socket });
-        await chatView({ config, room, username, hostname, socket });
+        const { room, username, hostname } = await joinChat({ config, socket, chatRooms });
+        await chatView({ config, room, username, hostname, socket, chatRooms });
     }
 }
 

@@ -15,6 +15,17 @@ function getUsers($mysql) {
     return $users_objs;
 }
 
+function getChatRoomIDs($mysql) {
+    $rooms = $mysql->query("SELECT room_id FROM chat_rooms");
+    $rooms_objs = array();
+    if($rooms) {
+        while($obj = $rooms->fetch_object()) {
+            array_push($rooms_objs, $obj->room_id);
+        }
+    }
+    return $rooms_objs;
+}
+
 function getMessages($mysql) {
     $subquery = "SELECT room, MAX(sent) as max_sent FROM messages GROUP BY room";
     $condition = "t1.room = t2.room AND t1.sent = t2.max_sent";

@@ -2,11 +2,13 @@
 require_once(__DIR__.'/config/env.php');
 $config = getConfig();
 
-require_once(__DIR__.'/connectors/memcached.php');
-$memcached_rooms = getRooms($config);
-
 require_once(__DIR__.'/connectors/mysql.php');
 $mysql = mysqlConnect($config);
+$chatRoomIDs = getChatRoomIDs($mysql);
+
+require_once(__DIR__.'/connectors/memcached.php');
+$memcached_rooms = getRooms($config, $chatRoomIDs);
+
 
 require_once(__DIR__.'/views/active-queues.php');
 require_once(__DIR__.'/views/database.php');

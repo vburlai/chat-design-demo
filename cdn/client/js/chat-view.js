@@ -1,9 +1,6 @@
-const title = {
-    'room-1': 'Room 1',
-    'room-2': 'Room 2',
-}
+function showChatView({ config, hostname, room, username, socket, chatRooms }) {
+    const [{ name: roomTitle }] = chatRooms.filter(({ room_id }) => room_id === room);
 
-function showChatView({ config, hostname, room, username, socket }) {
     const info1 = 'Client gets unique ID when connecting to server. ' +
         'For demo purposes we\'ve hard-coded client IDs in the URLs. ' +
         'They correspond to elements in system design chart.';
@@ -13,7 +10,7 @@ function showChatView({ config, hostname, room, username, socket }) {
     document.getElementById('main').innerHTML = `
     <form id="chat-form">
         <div class="chat-title" data-room="${room}">
-            <div class="text">${title[room]}</div>
+            <div class="text">${roomTitle}</div>
             <button id="leave-chat" type="reset">x</button>
         </div>
         <div class="chat-wrapper">
@@ -26,7 +23,7 @@ function showChatView({ config, hostname, room, username, socket }) {
                 <span> Server: ${hostname}</span>
             </div>
             <button id="load-msgs" type="reset">Load All Messages</button>
-            <div id="msgs">Joined ${room}</div>
+            <div id="msgs">Joined ${roomTitle}</div>
             <div class="send-msg">
                 <input type="text" id="chat-msg" name="msg" placeholder="Input message here" autocomplete="off" tabindex="0">
                 <input type="submit" value="Send">
