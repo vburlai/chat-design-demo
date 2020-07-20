@@ -30,7 +30,7 @@ function loadJS(url) {
 
 async function joinChat({ config, socket, chatRooms }) {
     await loadCSS('./css/join-form.css');
-    const { showJoinForm } = await import('./join-form.js');
+    const { showJoinForm } = await import('./views/join-form.js');
     const { room, username } = await showJoinForm({ config, chatRooms });
 
     socket.emit('join', { clientId: config.clientId, room, username });
@@ -43,17 +43,28 @@ async function joinChat({ config, socket, chatRooms }) {
 
 async function chatView({ config, room, username, hostname, socket, chatRooms }) {
     await loadCSS('./css/chat-view.css');
-    const { showChatView } = await import('./chat-view.js');
+    const { showChatView } = await import('./views/chat-view.js');
     await showChatView({ config, room, username, hostname, socket, chatRooms });
 }
 
+async function showError(message) {
+    const { showBrowserError } = await import('./views/browser-error.js');
+    showBrowserError(message);
+}
+
 async function init() {
-    const { getConfigFromUrl } = await import('./config-from-url.js');
+    const { getConfigFromUrl } = await import('./config/config-from-url.js');
     const config = getConfigFromUrl();
-    const { getRooms } = await import('./rooms.js');
+    const { getRooms } = await import('./controllers/rooms.js');
     const chatRooms = await getRooms({ config });
     await loadJS(`${config.backend}/socket.io.js`);
-    const socket = io(config.backend);
+    const { socketIoConnect } = await import('./controllers/io-connection.js');
+
+    const socket = await socketIoConnect({ config });
+    if (!socket) {
+        await showError('Could not establish WebSocket connection.');
+        return;
+    }
 
     while (true) {
         const { room, username, hostname } = await joinChat({ config, socket, chatRooms });
