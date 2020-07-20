@@ -10,6 +10,8 @@ Run the following command in Terminal to launch the project and visit http://loc
 
 _(You can terminate the server pressing `Ctrl + C`.)_
 
+_(A modern browser is required, for example [Firefox](https://www.mozilla.org/firefox/new/))_
+
 ## How it works?
 
 `docker-compose` [command](https://docs.docker.com/compose/reference/overview/) will read `docker-compose.yml` file and will create many containers defined there.
