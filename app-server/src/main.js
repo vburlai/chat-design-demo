@@ -7,6 +7,7 @@ const { hostname } = require('./config/env');
 const corsHeaders = require('./middlewares/cors-headers');
 const healthcheck = require('./routes/healthcheck');
 const socketIoJs = require('./routes/socket-io-js');
+const socketIoJsMap = require('./routes/socket-io-js-map');
 const ioConnection = require('./routes/io-connection');
 const getRooms = require('./routes/api/get-rooms');
 
@@ -20,6 +21,7 @@ app.use(corsHeaders);
 
 // JS client library to work with this server via WebSockets
 app.get('/socket.io.js', socketIoJs);
+app.get('/socket.io.js.map', socketIoJsMap);
 
 // List rooms
 app.get('/api/rooms', getRooms);

@@ -23,7 +23,7 @@ const ioConnection = (socket) => {
             .catch((err) => console.log('Could not process "load-msgs" message: ', err))
     );
     socket.on('leave', () =>
-        removeChatRoomMember(member.room, member)
+        member && removeChatRoomMember(member.room, member)
             .catch((err) => console.log('Could not process "leave" message: ', err))
     );
     socket.on('disconnect', () =>
