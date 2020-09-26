@@ -1,7 +1,9 @@
 <?php
 
 function mysqlConnect($config) {
-    return mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], $config['mysql_db']);
+    $mysql = mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], $config['mysql_db']);
+    $mysql->query("SET CHARSET utf8mb4");
+    return $mysql;
 }
 
 function getUsers($mysql) {

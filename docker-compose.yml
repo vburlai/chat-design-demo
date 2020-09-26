@@ -124,10 +124,6 @@ services:
         build: ./db-primary # will use db-primary/Dockerfile
         env_file: 
             - ./db-primary/.env # Primary DB secrets
-        environment: 
-            - MYSQL_DATABASE=${DB_PRIMARY_DATABASE}
-            - MYSQL_USER=${DB_PRIMARY_USER}
-            - MYSQL_PASSWORD=${DB_PRIMARY_PASSWORD}
         ports:
             - "3306" # allow other containers to connect
             - "3007:3306" # mysql localhost:3007  -> mysql db-primary:3306
@@ -140,10 +136,6 @@ services:
         build: ./db-replica # will use db-replica/Dockerfile
         env_file: 
             - ./db-replica/.env # Replica DB secrets
-        environment: 
-            - MYSQL_DATABASE=${DB_PRIMARY_DATABASE}
-            - MYSQL_USER=${DB_PRIMARY_USER}
-            - MYSQL_PASSWORD=${DB_PRIMARY_PASSWORD}
         ports:
             - "3306" # allow other containers to connect
             - "3008:3306" # mysql localhost:3008  -> mysql db-replica:3306

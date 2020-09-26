@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/mysql
-FROM mysql:5.7
+FROM mysql:8.0
 
 COPY my-config.cfg /etc/mysql/conf.d
 

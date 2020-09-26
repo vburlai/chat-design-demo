@@ -15,6 +15,7 @@ const mysqlPrimaryConnect = async () => {
             user: mysqlPrimaryUser,
             password: mysqlPrimaryPassword,
             database: mysqlPrimaryDatabase,
+            charset: 'utf8mb4',
         });
         mysqlPrimaryConnection.connect();
     }
